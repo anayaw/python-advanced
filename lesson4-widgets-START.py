@@ -115,7 +115,7 @@ f3 = Frame(root,height=450,width=600,bg="light yellow")
 l4=Label(f3,text="whats my age 🥰😡😡")
 l4.pack()
 
-old= Button(f3,text="22 or 23",command=oldd,fg="pink",state="active")
+old= Button(f3,text="22 or 23",cmomand=oldd,fg="pink",state="active")
 young= Button(f3,text="5 or 6",command=youngg,fg="light blue",state="active")
 good_job= Button(f3,text="11 or 12",command=good,fg="yellow",state="active")
 old.pack()

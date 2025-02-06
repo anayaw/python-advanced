@@ -30,6 +30,7 @@ entrybox.pack()
 
 
 l3 = Label(c,text="joe",bg="grey",justify="center")
+l3.pack()
 val = l3.cget("justify")
 print(val)
 
