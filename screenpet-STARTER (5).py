@@ -1,10 +1,12 @@
 '''
 Project: Screen Pet
-Author:
-Date
+Author: anaya
+Date : aw man does it matter ? (2025-02-06 , 5:44 pm now 5:45)
 
 [Project Description]
+literally a cat thats animated 
 
+how are you doing that 😨 ?? bang bang bang 😁 ?! 
 '''
 
 '''
