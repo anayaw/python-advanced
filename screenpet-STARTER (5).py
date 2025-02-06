@@ -1,23 +1,56 @@
 '''
 Project: Screen Pet
-Author: anaya
+Author: anaya ⭐ 
 Date : aw man does it matter ? (2025-02-06 , 5:44 pm now 5:45)
 
 [Project Description]
 literally a cat thats animated 
 
-how are you doing that 😨 ?? bang bang bang 😁 ?! 
+how are you doing that 😨 ?? bang bang bang 😁 
 '''
 
 '''
 TODO:
 1. Copy over your screen pet drawing here to animate it! (Or you can make a new one if you wish)
+
+⭐⭐
+def print_loc(event):
+   
+    print(event.x, event.y)
+
+
+# Your window has been made for you below
+root = Tk()
+
+# this line allows our print function to be called when and wherever you click
+root.bind("<Button-1>", print_loc)
+
+# Create your canvas and all your canvas objects here! Don't forget to pack!
+c = Canvas(root,height=600,width=600, bg='light yellow')
+c.create_rectangle(50, 50, 550, 550, fill="light blue",tags=('frame'))
+c.create_polygon(210, 285, 175, 200, 260, 225, fill='brown',outline='black', tags=('ears'))
+c.create_polygon(210,285,175, 200,225,245, fill = 'white', outline='black',tags=("more ear"))
+c.create_polygon(413,184,388,253,345,211,fill='brown',outline='black', tags=('ears'))
+c.create_polygon(413,184,388,253,366,231,fill="white",outline='black',tags=('more ears'))
+c.create_oval(200, 200, 400, 400, fill="brown", tags=('head'))
+c.create_oval(310,260,370,320, fill="white", tags=('eyes'))
+c.create_oval(230,260,290,320, fill="white", tags=('eyes'))
+c.create_oval(320,290,350,320, fill="black", tags=('pupiles'))
+c.create_oval(250,290,280,320, fill="black", tags=('pupiles'))
+c.create_oval(290, 330,310,350,fill="pink", tags=('nose'))
+c.create_line(300, 350, 325, 370, tags=('mouth'))
+c.create_line(300, 350, 275, 370, tags=('mouth'))
+c.pack()
+# Do not remove this line! It keeps your window open while the code is running
+root.mainloop()
+⭐⭐
+
 2. Decide on at least 3 events and their corresponding actions
     EXAMPLES
-    - Draw a set of closed eyes, and opened eyes. Pet blinks automatically. Pet winks if eyes clicked.
-    - Draw an exaggerated smile. Pet switched mouth to smile if user moves mouse over face.
+    - Draw a set of closed eyes, and opened eyes. Pet blinks automatically. Pet winks if eyes clicked. ⭐
+    - Draw an exaggerated smile. Pet switched mouth to smile if user moves mouse over face. ⭐
     - On activation (when window is created) Pet smiles / Any action
-    - A pet's feature (ex. nose, ears) changes colour when clicked
+    - A pet's feature (ex. nose, ears) changes colour when clicked ⭐
 '''
 
 '''
@@ -104,3 +137,4 @@ toggle_eyes()  # function must be called once in the main code to start the auto
 
 c.pack()
 root.mainloop()
+
