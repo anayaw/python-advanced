@@ -79,14 +79,24 @@ Ensure function is called once in the main code.
 (EXAMPLE GIVEN - crossing and uncrossing eyes is done automatically)
 
 '''
-
-
 from tkinter import *
 root = Tk()
 
-c = Canvas(root, width=500, height=500, bg='light blue')
+c = Canvas(root, width=600, height=600, bg='light blue')
 crossed = False  # Starting out with uncrossed eyes
 
+c.create_rectangle(50, 50, 550, 550, fill="light yellow",
+tags=('frame'))
+left_ear=c.create_polygon(395, 285, 420, 200, 340, 225, fill = 'brown', outline='black', tags=('ears'))
+right_ear=c.create_polygon(210, 285, 175, 200, 260, 225, fill='brown', outline='black', tags=('ears'))
+inner_left_ear=c.create_polygon(210, 285, 175, 200, 215, 250, fill='white',outline='black', tags=('Inner ear'))
+inner_right_ear=c.create_polygon(395, 290, 420, 200, 390, 251, fill = 'white', outline='black', tags=('Inner ears'))
+head = c.create_oval(200, 200, 400, 400, fill="brown", tags=('head'))
+c.create_line(300, 350, 325, 370, tags=('mouth'))
+c.create_line(300, 350, 275, 370, tags=('mouth'))
+c.create_oval(282, 318, 318, 348, fill="pink", tags=('nose'))
+left_eye_white=c.create_oval(230, 273, 280, 328, fill = 'white', tags='eye')
+right_eye_white=c.create_oval(315, 273, 365, 328, fill = 'white', tags='eye on right')
 
 def toggle_eyes():
     '''
@@ -116,23 +126,17 @@ def toggle_eyes():
     # after 1000 milliseconds, call this function again
     root.after(1000, toggle_eyes)
 
-
-left_eye_white = c.create_oval(100, 100, 120, 120, fill='white', tags=('eye'))
-right_eye_white = c.create_oval(150, 100, 170, 120, fill='white', tags=('eye'))
-
 # Normal pupils - the tags here haven't been used in this example but they may be helpful for other events
-left_eye_pupil_1 = c.create_oval(105, 105, 115, 115, fill='black', tags=(
-    'eye', 'pupil', 'uncrossed'), state=HIDDEN)
-right_eye_pupil_1 = c.create_oval(155, 105, 165, 115, fill='black', tags=(
-    'eye', 'pupil', 'uncrossed'), state=HIDDEN)
+left_eye_pupil_1 = c.create_oval(248, 293, 280, 328, fill = 'black', tags='pupil')
+right_eye_pupil_1 = c.create_oval(315, 293, 348, 328, fill = 'black', tags='pupil on right')
 
 # Crossed eye pupils
-left_eye_pupil_2 = c.create_oval(107, 107, 117, 117, fill='black', tags=(
-    'eye', 'pupil', 'crossed'), state=NORMAL)
-right_eye_pupil_2 = c.create_oval(153, 103, 163, 113, fill='black', tags=(
-    'eye', 'pupil', 'crossed'), state=NORMAL)
+left_eye_pupil_2 = c.create_oval(228, 271, 260, 308, fill='black', tags=('eye', 'pupil', 'crossed'), state=NORMAL)
+right_eye_pupil_2 = c.create_oval(315, 271, 348, 308, fill='black', tags=('eye', 'pupil', 'crossed'), state=NORMAL)
 
 toggle_eyes()  # function must be called once in the main code to start the automatic process
+
+
 
 
 c.pack()
