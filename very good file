@@ -1,0 +1,45 @@
+import tkinter as tk
+
+class appy:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Advanced Tkinter Events")
+        self.root.geometry("400x300")
+
+        self.label = tk.Label(root, text="drag me!", bg="lightblue")
+        self.label.place(x=150, y=100)
+
+        self.bind_events()
+        self.drag_data = {"x": 0, "y": 0}
+
+    def bind_events(self):
+        self.root.bind("<KeyPress>", self.on_key_press)
+        self.root.bind("<Button-1>", self.on_mouse_click)
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+        
+        self.label.bind("<ButtonPress-1>", self.start_drag)
+        self.label.bind("<B1-Motion>", self.do_drag)
+
+    def on_key_press(self, event):
+        print(f"key pressed: {event.keysym}")
+
+    def on_mouse_click(self, event):
+        print(f"mouse clicked at ({event.x}, {event.y})")
+
+    def on_close(self):
+        print("window closing...")
+        self.root.destroy()
+
+    def start_drag(self, event):
+        self.drag_data["x"] = event.x
+        self.drag_data["y"] = event.y
+
+    def do_drag(self, event):
+        new_x = self.label.winfo_x() + (event.x - self.drag_data["x"])
+        new_y = self.label.winfo_y() + (event.y - self.drag_data["y"])
+        self.label.place(x=new_x, y=new_y)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = appy(root)
+    root.mainloop()
