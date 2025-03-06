@@ -1,116 +1,89 @@
 '''
-To-Do List App - STARTER
-Author:
-Date:
+To-Do List App
+Author: anayaa
+Date: mar 6, 2025
 
-[Project Description]
-
+a like todo list
 '''
 
-'''
-TODO:
-1. Draw out your app on paper! Choose a colourscheme and your widget arrangement.
-2. Set up your window and create your frames. (under class definitions)
-3. Fill out the Classes, following the commented instructions
-
-    Classes and other outlines are just suggestions! If you find it more complicated
-    to follow this structure than make your own - go ahead and make your own or change
-    the classes here!
-
-4. Configure rows and columns (under frame and label creation)
-5. Modify layout to make it look nice!
-6. Test it out!
-    - Ensure that progress bar resizes with window
-    - Ensure that progress bar is accurate (should be 2/3 full if there are 3 items, 2 checked off)
-7. Clean up your code! Check to make sure all your instance variables are actually necessary, etc.
-
-'''
-
-'''
-EXTRAS THAT WILL BE HELPFUL:
-
-root.winfo_width() <- returns current width of the window
-[Canvas].winfo_width() <- returns current width of chosen Canvas
-winfo_height() will do the same for current height
-'''
 
 from tkinter import *
+from tkinter import ttk
+
 root = Tk()
-# Configure root here, give it a title, start size, resizability, etc.
+root.title("TODO List App")
+root.geometry("400x500")  
+root.resizable(True, True) 
 
 
-class ProgressBar():
-    def __init__(self):
-        '''
-        Customize this with the info needed to make your progress bar!
-        '''
-        pass
+class ProgressBar:
+    def __init__(self, parent):
+        self.progress_var = DoubleVar()
+        self.progress_bar = ttk.Progressbar(parent, variable=self.progress_var, mode='determinate')
+        self.progress_bar.pack(fill=X, padx=10, pady=5)
 
-    def resize(self):
-        '''
-        An additional method could be useful for updating the progress bar
-        when a new item is added or an item is checked/unchecked.
-
-        This method can also handle the resizing necessary when the window
-        changes size, or you can handle that seperately.
-
-        '''
-        pass
+    def update_progress(self, total, completed):
+        if total > 0:
+            self.progress_var.set((completed / total) * 100)
+        else:
+            self.progress_var.set(0)
 
 
-class ListItem():
-    '''
-    Items of this class are the entire line in your To-Do List.
-    They contain the Entry (for the user to type their list item),
-    the Checkbutton (created once Entry is destroyed),
-    and can contain your Trashcan Button if you choose to make one.
-    '''
+class ListItem:
+    def __init__(self, parent, text, app):
+        self.parent = parent
+        self.app = app
+        self.var = IntVar()
 
-    def __init__(self):
-        # Set up any instance attributes here
+        self.frame = Frame(parent, bg="lightblue", padx=5, pady=5)
+        self.frame.pack(fill=X, pady=2)
 
-        # Create a StringVar for your Entry, give it some default text
-        # Create a StringVar for your Checkbutton, empty
-        # Create an IntVar for your Checkbutton (to keep track of its state)
+        self.checkbox = Checkbutton(self.frame, text=text, variable=self.var, command=self.update_progress)
+        self.checkbox.pack(side=LEFT, padx=5)
 
-        # Create your Checkbutton   <- Could do this in replace_entry instead if you want
-        # Grid your Checkbutton     <-
+        self.delete_button = Button(self.frame, text="🗑", command=self.delete_item)  
+        self.delete_button.pack(side=RIGHT)
 
-        # Handle event binding
-        # - when Entry clicked -> default text should disappear
-        # - when User is using Entry and hit Return Button -> Entry should disappear and be replaced with Checkbutton
-        # - when Checkbutton is checked/unchecked -> progress bar should update
+    def update_progress(self):
+        self.app.update_progress()
 
-        # May need to do some row configuration here, since each ListItem is on a new row
-        pass
-
-    def clear_entry(self):
-        '''
-        Clears the default text out of the Entry
-        '''
-        pass
-
-    def replace_entry(self):
-        '''
-        Destroys Entry and replaces with Checkbutton
-        '''
-        pass
-
-    def checkbox_update(self):
-        '''
-        Update required variables when boxes are checked/unchecked, trigger progress bar change.
-        '''
-        pass
+    def delete_item(self):
+        self.frame.destroy()
+        self.app.items.remove(self)
+        self.app.update_progress()
 
 
-# Create basic necessary Frames
+class ToDoApp:
+    def __init__(self, root):
+        self.root = root
+        self.items = []  
 
-# Create Labels
+        Label(root, text="to-do list").pack(pady=5)
 
-# Create first ListItem
+        self.progress_bar = ProgressBar(root)
 
-# Create Canvas to hold ProgressBar and ProgressBar
+        Label(root, text="enter a task:").pack(pady=2)
 
-# Configure rows and columns - for the root, and each frame as necessary!
+        self.entry = Entry(root)
+        self.entry.pack(fill=X, padx=10, pady=5)
+        self.entry.bind("<Return>", self.add_item)
 
+        self.todo_frame = Frame(root)
+        self.todo_frame.pack(fill=BOTH, expand=True, padx=10, pady=10)
+
+    def add_item(self, event=None):
+        text = self.entry.get().strip()
+        if text:
+            item = ListItem(self.todo_frame, text, self)
+            self.items.append(item)  
+            self.entry.delete(0, END)
+            self.update_progress()
+
+    def update_progress(self):
+        total = len(self.items)
+        completed = sum(item.var.get() for item in self.items)
+        self.progress_bar.update_progress(total, completed)
+
+
+app = ToDoApp(root)
 root.mainloop()
