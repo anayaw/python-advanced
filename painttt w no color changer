@@ -1,12 +1,12 @@
 from tkinter import *
 
-# SETUP WINDOW
+# setup
 root = Tk()
-root.title("PAINT")
+root.title("paint !")
 frame = Frame(root)
 frame.pack()
 
-# Canvas - something to draw on!
+# canvas
 c = Canvas(root, bg='white', height=1000, width=1000)
 c.pack()
 
@@ -43,7 +43,7 @@ for i in range(len(colours)):
     x = ColourButton(colours[i])
     x.Button.grid(row=0, column=i)
 
-clear_button = Button(frame, text='CLEAR', command= clear_canvas)
+clear_button = Button(frame, text='clear !!', command= clear_canvas)
 clear_button.grid(row = 0, column = i + 1)
 
 SIZE = IntVar()
